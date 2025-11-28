@@ -17,5 +17,20 @@ DESTINOS = [
     Destino("Quellón", 50000, 12000)
 ]
 
-def precio_pasaje(precio_pasaje: int) -> int:
-    return precio_pasaje
+#Input: Destino, cantidad de asientos
+#Calculo del precio total del pasaje
+#Output: precio total pasaje
+def precio_total_pasaje(destino: Destino, cantidad_asientos: int) -> int:
+    return destino.precio_pasaje * cantidad_asientos
+
+#Input: Destino, peso en kg
+#Calculo del precio total de la encomienda
+#Output: precio total encomienda
+def precio_total_encomienda(destino: Destino, peso_kg: float) -> int:
+    return int(destino.precio_encomienda * peso_kg)
+
+
+destino_ejemplo = DESTINOS[0]
+#print(precio_total_pasaje(destino_ejemplo, 3))
+print(precio_total_encomienda(destino_ejemplo, 5.5))
+

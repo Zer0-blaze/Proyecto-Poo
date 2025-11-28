@@ -8,7 +8,7 @@ class Asiento(QWidget):
         self.inicializarUI()
 
     def inicializarUI(self):
-        self.setWindowTitle("Patagonia Wellboat - Reservar Viaje")
+        self.setWindowTitle("Patagonia Wellboat - Reservar Asiento")
         self.setGeometry(400, 100, 900, 600)
         self.generar_formulario()
         self.show()
@@ -21,6 +21,9 @@ class Asiento(QWidget):
         self.btn_volver.move(800, 20)
         self.btn_volver.clicked.connect(self.volver_atras)
 
+        # Lógica de selección de asientos en proceso
+
+    # La funciòn para que sirva el botòn de volver
     def volver_atras(self):
         if self.parent_window:
             self.parent_window.show()

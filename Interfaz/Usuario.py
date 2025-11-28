@@ -77,6 +77,7 @@ class Usuario(QWidget):
         self.selector_fecha.move(250, 287)
         self.selector_fecha.resize(250, 35)
 
+        # Embarcación
         self.btn_embarcaciones = QPushButton("Seleccionar embarcación", self)
         self.btn_embarcaciones.resize(250, 40)
         self.btn_embarcaciones.move(250, 335)
@@ -99,6 +100,7 @@ class Usuario(QWidget):
         self.btn_destinos.setText(destino.nombre)
         self.label_precio.setText(f"Precio: ${destino.precio_pasaje}")
 
+    # Abrir ventana de selección de asiento tras validar campos obligatorios
     def abrir_ventana_asiento(self):
 
         if not self.user_input.text() or not self.rut_input.text():
@@ -121,13 +123,14 @@ class Usuario(QWidget):
         cliente = Cliente(nombre, rut)
         cliente.embarcacion = self.embarcacion_seleccionada
         self.patagonia_wellboat.agregar_cliente(cliente)
-
-
+        
+    # Retrocede a la ventana anterior
     def volver_atras(self):
         if self.parent_window:
             self.parent_window.show()   
         self.close()
 
+    # Selecciona la embarcación
     def seleccionar_embarcacion(self, embarcacion: object):
         self.embarcacion_seleccionada = embarcacion
         try:

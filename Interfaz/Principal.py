@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QPushButton
 from Interfaz.Usuario import Usuario
 from Interfaz.Encomienda import Encomienda
+from Interfaz.Login import Login
 from Modelo.PatagoniaWellboat import PatagoniaWellboat
 
 class Principal(QWidget):
@@ -26,7 +27,7 @@ class Principal(QWidget):
         self.btn_gerente = QPushButton("Gerente", self)
         self.btn_gerente.resize(200, 40)
         self.btn_gerente.move(50, 220)
-        self.show()
+        self.btn_gerente.clicked.connect(self.abrir_ventana_gerente)
 
     def abrir_ventana_usuario(self):
         self.ventana_usuario = Usuario(self.patagonia_wellboat, parent=self)
@@ -36,4 +37,9 @@ class Principal(QWidget):
     def abrir_ventana_encomienda(self):
         self.ventana_encomienda = Encomienda(parent=self)
         self.ventana_encomienda.show()
+        self.hide()
+    
+    def abrir_ventana_gerente(self):
+        self.ventana_gerente = Login(parent=self)
+        self.ventana_gerente.show()
         self.hide()

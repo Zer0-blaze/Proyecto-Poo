@@ -77,11 +77,13 @@ class Encomienda(QWidget):
         self.btn_enviar.move(250, 360)
         self.btn_enviar.clicked.connect(self.enviar_encomienda)
 
+    # Selecciona el destino y actualiza el botón y la etiqueta de precio
     def seleccionar_destino(self, destino: Destino):
         self.destino_seleccionado = destino
         self.btn_destinos.setText(destino.nombre)
         self.label_precio.setText(f"Precio: ${destino.precio_encomienda}")
 
+    #Se encarga de enviar la encomienda después de verificar los campos
     def enviar_encomienda(self):
         if not self.input_remitente.text() or not self.input_destinatario.text():
             QMessageBox.warning(self, "Error", "Debe completar todos los campos antes.")
@@ -97,7 +99,8 @@ class Encomienda(QWidget):
         except ValueError:
             QMessageBox.warning(self, "Error", "Peso inválido.")
             return
-
+        
+    # Legendaria función para el botón volver
     def volver_atras(self):
         if self.parent_window:
             self.parent_window.show()
