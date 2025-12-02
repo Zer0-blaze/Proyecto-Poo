@@ -29,4 +29,4 @@ class Gerente(QWidget):
     def cerrar_sesion(self):
         if self.parent_window:
             self.parent_window.show()
-        self.close()  
+            self.close()  

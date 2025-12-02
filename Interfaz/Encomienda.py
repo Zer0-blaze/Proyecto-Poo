@@ -81,7 +81,7 @@ class Encomienda(QWidget):
     def seleccionar_destino(self, destino: Destino):
         self.destino_seleccionado = destino
         self.btn_destinos.setText(destino.nombre)
-        self.label_precio.setText(f"Precio: ${destino.precio_encomienda}")
+        self.label_precio.setText(f"Precio: ${destino.precio_encomienda} por kg")
 
     #Se encarga de enviar la encomienda después de verificar los campos
     def enviar_encomienda(self):

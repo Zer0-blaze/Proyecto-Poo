@@ -40,6 +40,6 @@ class Principal(QWidget):
         self.hide()
     
     def abrir_ventana_gerente(self):
-        self.ventana_gerente = Login(parent=self)
+        self.ventana_gerente = Login(parent=self, patagonia_wellboat=self.patagonia_wellboat)
         self.ventana_gerente.show()
         self.hide()

@@ -98,7 +98,7 @@ class Usuario(QWidget):
     def seleccionar_destino(self, destino: Destino):
         self.destino_seleccionado = destino
         self.btn_destinos.setText(destino.nombre)
-        self.label_precio.setText(f"Precio: ${destino.precio_pasaje}")
+        self.label_precio.setText(f"Precio: ${destino.precio_pasaje}  X persona")
 
     # Abrir ventana de selección de asiento tras validar campos obligatorios
     def abrir_ventana_asiento(self):
@@ -114,15 +114,16 @@ class Usuario(QWidget):
         if not self.embarcacion_seleccionada:
             QMessageBox.warning(self, "Error", "Debe seleccionar una embarcación antes.")
             return
-        self.ventana_asiento = Asiento(self.patagonia_wellboat, parent=self)
-        self.ventana_asiento.show()
-        self.hide()
 
         nombre = self.user_input.text()
         rut = self.rut_input.text()
         cliente = Cliente(nombre, rut)
         cliente.embarcacion = self.embarcacion_seleccionada
+
         self.patagonia_wellboat.agregar_cliente(cliente)
+        self.ventana_asiento = Asiento(self.embarcacion_seleccionada, self.patagonia_wellboat, parent=self)
+        self.ventana_asiento.show()
+        self.hide()
         
     # Retrocede a la ventana anterior
     def volver_atras(self):

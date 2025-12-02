@@ -1,8 +1,10 @@
 class Embarcacion:
-    def __init__(self, nombre: str, capacidadPasajeros: int, capacidadCargaKg: float):
+    def __init__(self, nombre: str, capacidadPasajeros: int, capacidadCargaKg: float, layout=None):
         self.nombre = nombre
         self.capacidadPasajeros = capacidadPasajeros
         self.capacidadCargaKg = capacidadCargaKg
+        self.layout_asientos = layout
+        self.asientos_ocupados = set()
 
     def obtenerCapacidadPasajeros(self) -> int:
         return self.capacidadPasajeros
@@ -25,7 +27,23 @@ class Embarcacion:
         for barco in embarcaciones:
             if barco.puedeRealizarViaje(pasajeros, cargaKg):
                 return barco
-        return None  
+        return None
+    
+    #Input: id del asiento
+    #Verifica si un asiento está disponible
+    #Output: booleano indicando si el asiento está disponible
+    def es_asiento_disponible(self, asiento_id: str) -> bool:
+        return asiento_id not in self.asientos_ocupados
+    
+    #Input: id del asiento
+    #Marca un asiento como ocupado si está disponible
+    #Output: booleano indicando si la operación fue exitosa
+    def ocupar_asiento(self, asiento_id: str):
+        if self.es_asiento_disponible(asiento_id):
+            self.asientos_ocupados.add(asiento_id)
+            return True
+        return False  
+    
 #Input: ninguna
 #
 #Output: representación en cadena de la embarcación

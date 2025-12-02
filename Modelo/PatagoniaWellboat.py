@@ -2,6 +2,7 @@ from Modelo.viaje import Viaje
 from Modelo.embarcacion import Embarcacion
 from Modelo.cliente import Cliente
 from Modelo.venta import Venta
+from Modelo.gerente import Gerente
 
 class PatagoniaWellboat:
     def __init__(self):
@@ -9,6 +10,7 @@ class PatagoniaWellboat:
         self.lista_embarcaciones = []
         self.lista_clientes = []
         self.registro_ventas = []
+        self.gerentes = Gerente("admin", "admin123")
 
     def agregar_viaje(self, viaje: Viaje):
         self.lista_viajes.append(viaje)
