@@ -29,7 +29,7 @@ class PatagoniaWellboat:
         self.lista_reservas.append(reserva)
 
     def agregar_reserva_asiento(self, reserva_asiento):
-        """Agrega una reserva de asiento a la lista de reservas"""
+
         self.lista_reservas.append(reserva_asiento)
 
     def obtener_viajes(self):
