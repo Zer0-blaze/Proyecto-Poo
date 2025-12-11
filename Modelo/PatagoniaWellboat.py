@@ -10,6 +10,7 @@ class PatagoniaWellboat:
         self.lista_embarcaciones = []
         self.lista_clientes = []
         self.registro_ventas = []
+        self.lista_reservas = []
         self.gerentes = Gerente("admin", "admin123")
 
     def agregar_viaje(self, viaje: Viaje):
@@ -24,6 +25,13 @@ class PatagoniaWellboat:
     def agregar_venta(self, venta: Venta):
         self.registro_ventas.append(venta)
 
+    def agregar_reserva(self, reserva):
+        self.lista_reservas.append(reserva)
+
+    def agregar_reserva_asiento(self, reserva_asiento):
+        """Agrega una reserva de asiento a la lista de reservas"""
+        self.lista_reservas.append(reserva_asiento)
+
     def obtener_viajes(self):
         return self.lista_viajes
 
@@ -35,3 +43,6 @@ class PatagoniaWellboat:
 
     def obtener_ventas(self):
         return self.registro_ventas
+
+    def obtener_reservas(self):
+        return self.lista_reservas

@@ -6,7 +6,6 @@ from PyQt6.QtGui import QFont
 from functools import partial
 from Interfaz.Asiento import Asiento
 from Modelo.destino import DESTINOS, Destino
-from Modelo.cliente import Cliente
 from Modelo.embarcacion import CatamaranLiviano, FerryMediano, WellboatGranCapacidad
 
 class Usuario(QWidget):
@@ -117,11 +116,16 @@ class Usuario(QWidget):
 
         nombre = self.user_input.text()
         rut = self.rut_input.text()
-        cliente = Cliente(nombre, rut)
-        cliente.embarcacion = self.embarcacion_seleccionada
 
-        self.patagonia_wellboat.agregar_cliente(cliente)
-        self.ventana_asiento = Asiento(self.embarcacion_seleccionada, self.patagonia_wellboat, parent=self)
+        self.ventana_asiento = Asiento(
+            self.embarcacion_seleccionada, 
+            self.patagonia_wellboat, 
+            parent=self,
+            destino=self.destino_seleccionado,
+            nombre_cliente=nombre,
+            rut_cliente=rut,
+            fecha_viaje=self.selector_fecha.date().toString("dd/MM/yyyy")
+        )
         self.ventana_asiento.show()
         self.hide()
         

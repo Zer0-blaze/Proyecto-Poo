@@ -79,7 +79,7 @@ class Login(QWidget):
 
     def abrir_menu_gerente(self):
         parent_for_gerente = self.parent_window if self.parent_window is not None else self
-        self.ventana_gerente = Gerente(parent=parent_for_gerente)
+        self.ventana_gerente = Gerente(patagonia_wellboat=self.patagonia_wellboat, parent=parent_for_gerente)
         self.ventana_gerente.show()
         self.close()
 

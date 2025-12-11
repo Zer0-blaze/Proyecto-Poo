@@ -5,12 +5,14 @@ from PyQt6.QtGui import QFont
 from functools import partial
 from Modelo.destino import DESTINOS, Destino
 from Modelo.encomienda import encomienda
+from Interfaz.DetallesEncomienda import DetallesEncomienda
 
 
 class Encomienda(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, patagonia_wellboat=None, parent=None):
         super().__init__()
         self.parent_window = parent
+        self.patagonia_wellboat = patagonia_wellboat
         self.destino_seleccionado = None
         self.inicializarUI()
 
@@ -92,13 +94,26 @@ class Encomienda(QWidget):
             QMessageBox.warning(self, "Error", "Debe seleccionar un destino antes.")
             return
 
-        remitente = self.input_remitente.text()
-        destinatario = self.input_destinatario.text()
         try:
             peso = float(self.input_peso.text())
         except ValueError:
             QMessageBox.warning(self, "Error", "Peso inválido.")
             return
+        
+        remitente = self.input_remitente.text()
+        destinatario = self.input_destinatario.text()
+        
+        # Abrir ventana de detalles encomienda
+        self.ventana_detalles = DetallesEncomienda(
+            remitente=remitente,
+            destinatario=destinatario,
+            destino=self.destino_seleccionado,
+            peso=peso,
+            patagonia_wellboat=self.patagonia_wellboat,
+            parent=self
+        )
+        self.ventana_detalles.show()
+        self.hide()
         
     # Legendaria función para el botón volver
     def volver_atras(self):

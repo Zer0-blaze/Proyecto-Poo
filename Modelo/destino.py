@@ -29,8 +29,3 @@ def precio_total_pasaje(destino: Destino, cantidad_asientos: int) -> int:
 def precio_total_encomienda(destino: Destino, peso_kg: float) -> int:
     return int(destino.precio_encomienda * peso_kg)
 
-
-destino_ejemplo = DESTINOS[0]
-#print(precio_total_pasaje(destino_ejemplo, 3))
-print(precio_total_encomienda(destino_ejemplo, 5.5))
-

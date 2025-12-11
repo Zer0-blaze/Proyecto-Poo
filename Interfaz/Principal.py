@@ -35,7 +35,7 @@ class Principal(QWidget):
         self.hide()
 
     def abrir_ventana_encomienda(self):
-        self.ventana_encomienda = Encomienda(parent=self)
+        self.ventana_encomienda = Encomienda(patagonia_wellboat=self.patagonia_wellboat, parent=self)
         self.ventana_encomienda.show()
         self.hide()
     

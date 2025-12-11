@@ -6,12 +6,16 @@ from Interfaz.DetallesUsuario import DetallesUsuario
 
 
 class Asiento(QWidget):
-    def __init__(self, embarcacion, patagonia_wellboat=None, parent=None):
+    def __init__(self, embarcacion, patagonia_wellboat=None, parent=None, destino=None, 
+                 nombre_cliente=None, rut_cliente=None, fecha_viaje=None):
         super().__init__()
         self.embarcacion = embarcacion 
         self.patagonia_wellboat = patagonia_wellboat
         self.parent_window = parent
-
+        self.destino = destino
+        self.nombre_cliente = nombre_cliente
+        self.rut_cliente = rut_cliente
+        self.fecha_viaje = fecha_viaje
         self.asientos_seleccionados = []     
 
         self.inicializarUI()
@@ -64,6 +68,35 @@ class Asiento(QWidget):
 
         fila = 0
         columna = 0
+        reserved_numbers = set()
+        if self.patagonia_wellboat:
+            try:
+                reservas = self.patagonia_wellboat.obtener_reservas() or []
+                for reserva in reservas:
+                    asientos_lista = getattr(reserva, 'asientos_lista', None)
+                    if asientos_lista:
+                        try:
+                            for asiento_num in asientos_lista:
+                                reserved_numbers.add(int(asiento_num))
+                        except Exception:
+                            pass
+                    elif hasattr(reserva, 'asiento') and reserva.asiento is not None:
+                        try:
+                            reserved_numbers.add(int(reserva.asiento))
+                        except Exception:
+                            if hasattr(reserva.asiento, 'numero'):
+                                try:
+                                    reserved_numbers.add(int(reserva.asiento.numero))
+                                except Exception:
+                                    pass
+                    elif hasattr(reserva, 'asiento') and hasattr(reserva.asiento, 'numero'):
+                        try:
+                            reserved_numbers.add(int(reserva.asiento.numero))
+                        except Exception:
+                            pass
+            except Exception:
+                reserved_numbers = set()
+
         for asiento_num in range(1, total_asientos + 1):
 
             boton = QPushButton(str(asiento_num))
@@ -71,6 +104,12 @@ class Asiento(QWidget):
             boton.clicked.connect(
                 lambda checked, a=asiento_num: self.seleccionar_asiento(a)
             )
+
+            # Si el asiento ya está reservado, marcarlo como no disponible
+            if asiento_num in reserved_numbers:
+                boton.setEnabled(False)
+                boton.setStyleSheet("background-color: lightgray; color: darkred;")
+                boton.setToolTip("No disponible - Asiento reservado")
 
             self.layout.addWidget(boton, fila, columna)
             self.botones_asientos.append(boton)
@@ -103,12 +142,18 @@ class Asiento(QWidget):
     #Selecciona o deselecciona un asiento
     #Output: Actualiza la lista de asientos seleccionados y el estilo del botón
     def seleccionar_asiento(self, numero):
+        # Evitar seleccionar asientos que están deshabilitados (reservados)
+        boton = self.botones_asientos[numero - 1]
+        if not boton.isEnabled():
+            QMessageBox.warning(self, "Asiento no disponible", "El asiento seleccionado no está disponible.")
+            return
+
         if numero in self.asientos_seleccionados:
             self.asientos_seleccionados.remove(numero)
-            self.botones_asientos[numero - 1].setStyleSheet("")
+            boton.setStyleSheet("")
         else:
             self.asientos_seleccionados.append(numero)
-            self.botones_asientos[numero - 1].setStyleSheet(
+            boton.setStyleSheet(
                 "background-color: lightgreen; font-weight: bold;"
             )
 
@@ -123,7 +168,17 @@ class Asiento(QWidget):
             self, "Asientos Confirmados",
             f"Asientos seleccionados: {asientos_str}"
         )
-        self.ventana_detalles = DetallesUsuario(parent=self.parent_window)
+        # Pasar datos a DetallesUsuario
+        self.ventana_detalles = DetallesUsuario(
+            asientos_seleccionados=self.asientos_seleccionados,
+            patagonia_wellboat=self.patagonia_wellboat,
+            destino=self.destino,
+            nombre_cliente=self.nombre_cliente,
+            rut_cliente=self.rut_cliente,
+            fecha_viaje=self.fecha_viaje,
+            embarcacion=self.embarcacion,
+            parent=self.parent_window
+        )
         self.ventana_detalles.show()
         self.close()
 
