@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QPushButton, QLabel
 from PyQt6.QtGui import QFont
 from Interfaz.VerClientes import VerClientes
+from Interfaz.VerEncomiendas import VerEncomiendas
 
 class Gerente(QWidget):
     def __init__(self, patagonia_wellboat=None, parent=None):
@@ -97,13 +98,7 @@ class Gerente(QWidget):
         self.hide()
 
     def ver_encomiendas(self):
-        from Interfaz.VerEncomiendas import VerEncomiendas
-        try:
-            print("[Gerente] Al abrir VerEncomiendas, patagonia_wellboat presente:", bool(self.patagonia_wellboat))
-            if self.patagonia_wellboat:
-                print("[Gerente] Reservas actuales:", len(self.patagonia_wellboat.obtener_reservas()))
-        except Exception as e:
-            print("[Gerente] Error debug patagonia_wellboat:", e)
+        
         self.ventana_encomiendas = VerEncomiendas(self.patagonia_wellboat, self)
         self.hide()
 

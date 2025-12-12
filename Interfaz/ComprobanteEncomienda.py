@@ -228,7 +228,7 @@ class ComprobanteEncomienda(QWidget):
             if self.patagonia_wellboat:
                 self.patagonia_wellboat.agregar_venta(venta)
             
-            # 7. Crear ReservaEncomienda (referencia a cliente + encomienda)
+            # 7. Crear ReservaEncomienda
             reserva_encomienda = ReservaEncomienda(
                 id=int(self.numero_comprobante),
                 cliente=cliente, 

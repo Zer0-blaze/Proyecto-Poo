@@ -211,7 +211,6 @@ class ComprobanteUsuario(QWidget):
         self.close()
 
     def guardar_datos(self):
-        """Guarda todos los datos en las clases del modelo según el UML"""
         try:
             # 1. Crear cliente y registrarlo
             cliente = Cliente(self.nombre_cliente, self.rut_cliente)
@@ -245,9 +244,9 @@ class ComprobanteUsuario(QWidget):
         
             reserva_pasaje = ReservaPasaje(
                 id=int(self.numero_comprobante),
-                cliente=cliente,  # Referencia al objeto Cliente
+                cliente=cliente,  
                 viaje=None,
-                asiento=asientos_str  # Almacenar como string con todos los asientos
+                asiento=asientos_str 
             )
             # Añadir atributos para visualización
             reserva_pasaje.asientos_lista = sorted(self.asientos_seleccionados)

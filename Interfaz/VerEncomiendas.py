@@ -58,7 +58,7 @@ class VerEncomiendas(QWidget):
 
             for fila, encomienda in enumerate(encomiendas):
                 try:
-                    # ID (usar id existente o generar una mostrable)
+                    # ID 
                     id_val = getattr(encomienda, 'id', None)
                     if not id_val:
                         # Generar ID legible si falta (EN-0001, EN-0002, ...)

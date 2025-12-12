@@ -11,7 +11,7 @@ class PatagoniaWellboat:
         self.lista_clientes = []
         self.registro_ventas = []
         self.lista_reservas = []
-        self.gerentes = Gerente("admin", "admin123")
+        self.gerentes = Gerente("Auronplay", "admin123")
 
     def agregar_viaje(self, viaje: Viaje):
         self.lista_viajes.append(viaje)
